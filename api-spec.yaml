@@ -1,0 +1,230 @@
+swagger: "2.0"
+info:
+  description: "REST API to provide information of UFC fights and fighters."
+  version: "1.0.0"
+  title: "UFC API"
+  contact:
+    email: "tai.okubo93@gmail.com"
+host: "www.api.ufc.com"
+basePath: "/v2"
+tags:
+- name: "fighters"
+  description: "Operations about fighters"
+paths:
+  /fighters:
+    get:
+      tags:
+      - "fighters"
+      summary: "Retrieves a list with all fighters"
+      operationId: "findAll"
+      parameters:
+      - name: "Content-Type"
+        in: "header"
+        description: "The acceptable format"
+        required: true
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "The number of items to skip before starting to collect the result set"
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        description: "The numbers of items to return"
+        type: "integer"
+      produces:
+      - "application/vnd.api+json"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Response"
+      security:
+      - api_key: []      
+      
+    post:
+      tags:
+      - "fighters"
+      summary: "Adds a new fighter"
+      consumes: 
+      - "application/vnd.api+json"
+      produces:
+      - "application/vnd.api+json"
+      parameters:
+      - name: "Content-Type"
+        in: "header"
+        description: "application/vnd.api+json"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Request"
+        description: "Request object that follows Json API specification"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      responses:
+        202:
+          description: "Accepted"
+          schema:
+            $ref: "#/definitions/Response"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Response"
+      security:
+      - api_key: []
+            
+  /fighters/{id}:
+    get:
+      tags:
+      - "fighters"
+      summary: "Finds fighters with the given id"
+      produces:
+      - "application/vnd.api+json"
+      parameters:
+      - name: "Content-Type"
+        in: "header"
+        description: "application/vnd.api+json"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "ID of fighter to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Response"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Response"
+      security:
+      - api_key: []
+  
+    patch:
+      tags: 
+      - "fighters"
+      summary: "Update the informations of the fighter with the given id"
+      consumes:
+      - "application/vnd.api+json"
+      produces:
+      - "application/vnd.api+json"
+      parameters:
+      - name: "Content-Type"
+        in: "header"
+        description: "application/vnd.api+json"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Request"
+        description: "Request object that follows Json API specification"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      - name: "id"
+        in: "path"
+        description: "ID of fighter to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Response"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Response"
+      security:
+      - api_key: []
+      
+    delete:
+      tags: 
+      - "fighters"
+      summary: "Deletes the fighter with the given id"
+      produces:
+      - "application/vnd.api+json"
+      parameters:
+      - name: "Content-Type"
+        in: "header"
+        description: "application/vnd.api+json"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "ID of fighter to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        202:
+          description: "Accepted"
+          schema:
+            $ref: "#/definitions/Response"
+        401:
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/Response"    
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Response"
+      deprecated: false
+      security:
+      - api_key: []
+  
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Request:
+    type: "object"
+    properties:
+      data:
+        $ref: "#/definitions/RequestData"
+      meta:
+        $ref: "#/definitions/RequestMeta"
+        
+  Response:
+    type: "object"
+    properties:
+      data:
+        $ref: "#/definitions/RequestData"
+      meta:
+        $ref: "#/definitions/RequestMeta"
+            
+  RequestData:
+    type: "object"
+    properties:
+      attributes: 
+        $ref: "#/definitions/ApiResponse"
+        
+  
+  RequestMeta:
+    type: "object"
+    properties:
+      authors:
+        type: "array"
+        items:
+          type: "string"
+        
+        
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
