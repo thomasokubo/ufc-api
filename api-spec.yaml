@@ -37,15 +37,15 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/Response"
+            $ref: "#/definitions/FighterResponse"
       security:
-      - api_key: []      
-      
+      - api_key: []
+
     post:
       tags:
       - "fighters"
       summary: "Adds a new fighter"
-      consumes: 
+      consumes:
       - "application/vnd.api+json"
       produces:
       - "application/vnd.api+json"
@@ -60,19 +60,19 @@ paths:
         description: "Request object that follows Json API specification"
         required: true
         schema:
-          $ref: "#/definitions/Request"
+          $ref: "#/definitions/FighterRequest"
       responses:
         202:
           description: "Accepted"
           schema:
-            $ref: "#/definitions/Response"
+            $ref: "#/definitions/FighterResponse"
         401:
           description: "Unauthorized"
           schema:
-            $ref: "#/definitions/Response"
+            $ref: "#/definitions/Errors"
       security:
       - api_key: []
-            
+
   /fighters/{id}:
     get:
       tags:
@@ -96,16 +96,16 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/Response"
+            $ref: "#/definitions/FighterResponse"
         404:
           description: "Not Found"
           schema:
-            $ref: "#/definitions/Response"
+            $ref: "#/definitions/Errors"
       security:
       - api_key: []
-  
+
     patch:
-      tags: 
+      tags:
       - "fighters"
       summary: "Update the informations of the fighter with the given id"
       consumes:
@@ -123,7 +123,7 @@ paths:
         description: "Request object that follows Json API specification"
         required: true
         schema:
-          $ref: "#/definitions/Request"
+          $ref: "#/definitions/FighterRequest"
       - name: "id"
         in: "path"
         description: "ID of fighter to return"
@@ -134,16 +134,16 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/Response"
+            $ref: "#/definitions/FighterResponse"
         404:
           description: "Not Found"
           schema:
-            $ref: "#/definitions/Response"
+            $ref: "#/definitions/Errors"
       security:
       - api_key: []
-      
+
     delete:
-      tags: 
+      tags:
       - "fighters"
       summary: "Deletes the fighter with the given id"
       produces:
@@ -164,48 +164,48 @@ paths:
         202:
           description: "Accepted"
           schema:
-            $ref: "#/definitions/Response"
+            $ref: "#/definitions/FighterResponse"
         401:
           description: "Unauthorized"
           schema:
-            $ref: "#/definitions/Response"    
+            $ref: "#/definitions/Errors"
         404:
           description: "Not Found"
           schema:
-            $ref: "#/definitions/Response"
+            $ref: "#/definitions/Errors"
       deprecated: false
       security:
       - api_key: []
-  
+
 securityDefinitions:
   api_key:
     type: "apiKey"
     name: "api_key"
     in: "header"
 definitions:
-  Request:
+  FighterRequest:
     type: "object"
     properties:
       data:
-        $ref: "#/definitions/RequestData"
-      meta:
-        $ref: "#/definitions/RequestMeta"
-        
-  Response:
+        $ref: "#/definitions/FighterData"
+
+  FighterResponse:
     type: "object"
     properties:
       data:
-        $ref: "#/definitions/RequestData"
+        type: "array"
+        items:
+          $ref: "#/definitions/FighterData"
       meta:
         $ref: "#/definitions/RequestMeta"
-            
-  RequestData:
+
+  FighterData:
     type: "object"
     properties:
-      attributes: 
-        $ref: "#/definitions/ApiResponse"
-        
-  
+      attributes:
+        $ref: "#/definitions/Fighter"
+
+
   RequestMeta:
     type: "object"
     properties:
@@ -213,17 +213,48 @@ definitions:
         type: "array"
         items:
           type: "string"
-        
-        
-  ApiResponse:
+
+
+  Fighter:
     type: "object"
     properties:
-      code:
+      first_name:
+        type: "string"
+      last_name:
+        type: "string"
+      nickname:
+        type: "string"
+      holds_title:
+        type: boolean
+      weight_classes:
+        type: array
+        items:
+          type: "string"
+      winnings:
         type: "integer"
         format: "int32"
-      type:
+      losses:
+        type: "integer"
+        format: "int32"
+      draws:
+        type: "integer"
+        format: "int32"
+      height:
         type: "string"
-      message:
+      weight:
+        type: "string"
+      sumarry:
+        type: "string"
+  Errors:
+    type: "object"
+    properties:
+      errors:
+        type: "array"
+        items:
+          type: "string"
+      status:
+        type: "string"
+      detail:
         type: "string"
 externalDocs:
   description: "Find out more about Swagger"
