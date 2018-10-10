@@ -5,6 +5,7 @@ import com.repnation.ufc.service.FighterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,5 +25,10 @@ public class FighterController {
     @GetMapping
     public List<Fighter> getFighters() {
         return fighterService.findAll();
+    }
+
+    @GetMapping(value = "/{id}")
+    public Fighter getFighterById(@RequestParam Long id) throws Exception{
+        return fighterService.findById(id);
     }
 }

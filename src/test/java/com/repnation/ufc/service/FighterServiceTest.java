@@ -10,8 +10,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -25,7 +27,6 @@ public class FighterServiceTest {
 
     @Test
     public void whenICallServiceItShouldPerformProperly() {
-
         List<Fighter> fighters = new ArrayList<>();
         Fighter conorMcGregor = new Fighter();
         conorMcGregor.setNickname("Notorious");
@@ -36,6 +37,17 @@ public class FighterServiceTest {
         List<Fighter> actualFighters = fighterService.findAll();
 
         assertEquals(fighters, actualFighters);
+    }
 
+    @Test
+    public void whenIRequestFighterByIdShouldPerformProperly() {
+        Fighter expectedFighter = new Fighter();
+        expectedFighter.setNickname("Notorious");
+
+        when(fighterRepository.findById(any())).thenReturn(Optional.of(expectedFighter));
+        Optional<Fighter> response = fighterRepository.findById(Long.valueOf(1));
+
+        Fighter actualFighter = response.orElseGet(Fighter::new);
+        assertEquals(expectedFighter, actualFighter);
     }
 }
