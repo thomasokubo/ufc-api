@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "826675d0-5b94-4dbc-b0fe-c42bfbd7a099",
+		"name": "UFC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Fighters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{ufc-url}}/fighters",
+					"host": [
+						"{{ufc-url}}"
+					],
+					"path": [
+						"fighters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Fighter By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{ufc-url}}/fighters/1",
+					"host": [
+						"{{ufc-url}}"
+					],
+					"path": [
+						"fighters",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
