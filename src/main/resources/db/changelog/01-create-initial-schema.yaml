@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: thomas
+      changes:
+        - createTable:
+            tableName: fighter
+            columns:
+              - column:
+                  name: Id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: firstName
+                  type: varchar(255)
+              - column:
+                  name: lastName
+                  type: varchar(255)
+              - column:
+                  name: nickname
+                  type: varchar(255)
+              - column:
+                  name: holdsTitle
+                  type: boolean
+              - column:
+                  name: weightClass
+                  type: varchar(255)
+              - column:
+                  name: winnings
+                  type: int
+              - column:
+                  name: losses
+                  type: int
+              - column:
+                  name: draws
+                  type: int
+              - column:
+                  name: age
+                  type: int
+              - column:
+                  name: height
+                  type: varchar(255)
+              - column:
+                  name: weight
+                  type: varchar(255)
+              - column:
+                  name: summary
+                  type: varchar(255)
