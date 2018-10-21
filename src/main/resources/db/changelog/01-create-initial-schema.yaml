@@ -14,19 +14,19 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: firstName
+                  name: first_name
                   type: varchar(255)
               - column:
-                  name: lastName
+                  name: last_name
                   type: varchar(255)
               - column:
                   name: nickname
                   type: varchar(255)
               - column:
-                  name: holdsTitle
+                  name: holds_title
                   type: boolean
               - column:
-                  name: weightClass
+                  name: weight_class
                   type: varchar(255)
               - column:
                   name: winnings
