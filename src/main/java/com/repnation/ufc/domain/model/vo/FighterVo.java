@@ -1,38 +1,27 @@
-package com.repnation.ufc.domain.model;
+package com.repnation.ufc.domain.model.vo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-@Table(name = "fighter")
-public class Fighter {
-    @Id
-    @GeneratedValue
-    private Long Id;
-    @Column(name = "first_name")
+public class FighterVo {
+
+    @JsonProperty("first_name")
     private String firstName;
-    @Column(name = "last_name")
+    @JsonProperty("last_name")
     private String lastName;
     private String nickname;
-    @Column(name = "holds_title")
-    private Boolean holdsTitle;
-    @Column(name = "weight_class")
+    @JsonProperty("holds_title")
+    private boolean holdsTitle;
+    @JsonProperty("weight_class")
     private String weightClass;
-    private Integer winnings;
-    private Integer losses;
-    private Integer draws;
-    private Integer age;
+    private int winnings;
+    private int losses;
+    private int draws;
+    private int age;
     private String height;
     private String weight;
     private String summary;
 
-    public Fighter() {
-    }
-
-    private Fighter(Builder builder) {
+    private FighterVo(Builder builder) {
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.nickname = builder.nickname;
@@ -124,8 +113,8 @@ public class Fighter {
             return this;
         }
 
-        public Fighter build(){
-            return new Fighter(this);
+        public FighterVo build() {
+            return new FighterVo(this);
         }
     }
 
@@ -133,95 +122,47 @@ public class Fighter {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public boolean isHoldsTitle() {
         return holdsTitle;
-    }
-
-    public void setHoldsTitle(Boolean holdsTitle) {
-        this.holdsTitle = holdsTitle;
     }
 
     public String getWeightClass() {
         return weightClass;
     }
 
-    public void setWeightClass(String weightClass) {
-        this.weightClass = weightClass;
-    }
-
     public int getWinnings() {
         return winnings;
-    }
-
-    public void setWinnings(Integer winnings) {
-        this.winnings = winnings;
     }
 
     public int getLosses() {
         return losses;
     }
 
-    public void setLosses(Integer losses) {
-        this.losses = losses;
-    }
-
     public int getDraws() {
         return draws;
-    }
-
-    public void setDraws(Integer draws) {
-        this.draws = draws;
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public String getHeight() {
         return height;
-    }
-
-    public void setHeight(String height) {
-        this.height = height;
     }
 
     public String getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
-        this.weight = weight;
-    }
-
     public String getSummary() {
         return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
     }
 }
