@@ -117,4 +117,52 @@ public class FighterVo {
             return new FighterVo(this);
         }
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public boolean isHoldsTitle() {
+        return holdsTitle;
+    }
+
+    public String getWeightClass() {
+        return weightClass;
+    }
+
+    public int getWinnings() {
+        return winnings;
+    }
+
+    public int getLosses() {
+        return losses;
+    }
+
+    public int getDraws() {
+        return draws;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
 }
