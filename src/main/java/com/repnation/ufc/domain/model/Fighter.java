@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "fighter")
 public class Fighter {
 
     @Id
