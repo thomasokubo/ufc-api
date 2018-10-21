@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -37,43 +38,31 @@ public class FighterControllerTest {
                 .build();
         fighters.add(fighter);
 
-        List<FighterVo> fightersVo = new ArrayList<>();
-        FighterVo expectedFighterVo = new FighterVo.Builder()
-                .withFirsName("Conor")
-                .withLastName("McGregor")
-                .withNickname("Notorious")
-                .build();
-        fightersVo.add(expectedFighterVo);
-
         when(fighterService.findAll()).thenReturn(fighters);
-        when(FighterMapper.mapFromDomainToVo(any())).thenReturn(expectedFighterVo);
-
         List<FighterVo> actualFighters = fighterController.getFighters();
 
-        assertEquals(fightersVo, actualFighters);
+        verify(fighterService).findAll();
         assertEquals(Integer.parseInt("1"), actualFighters.size());;
     }
 
     @Test
     public void whenIRequestFighterByIdShouldPerformProperly() throws Exception{
+        String firstName = "Anderson";
+        String lastName = "Silva";
+        String nickname = "Spider";
         Fighter expectedFighter = new Fighter.Builder()
-                .withFirsName("Anderson")
-                .withLastName("Silva")
-                .withNickname("Spider")
-                .build();
-
-        FighterVo expectedFighterVo= new FighterVo.Builder()
-                .withFirsName("Anderson")
-                .withLastName("Silva")
-                .withNickname("Spider")
+                .withFirsName(firstName)
+                .withLastName(lastName)
+                .withNickname(nickname)
                 .build();
 
         when(fighterService.findById(any())).thenReturn(expectedFighter);
-        when(FighterMapper.mapFromDomainToVo(any())).thenReturn(expectedFighterVo);
+        FighterVo actualFighter = fighterController.getFighterById(1L);
 
-        FighterVo actualFighter = fighterController.getFighterById(Long.valueOf(1));
-
-        assertEquals(expectedFighter, actualFighter);
+        verify(fighterService).findById(1L);
+        assertEquals(expectedFighter.getFirstName(), firstName);
+        assertEquals(expectedFighter.getLastName(), lastName);
+        assertEquals(expectedFighter.getNickname(), nickname);
     }
 
     @Test(expected = NotFoundException.class)
