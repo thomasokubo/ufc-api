@@ -4,9 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "fighter")
 public class Fighter {
     @Id
     @GeneratedValue
