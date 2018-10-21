@@ -1,0 +1,3 @@
+INSERT INTO fighter (first_name, last_name, nickname, holds_title, weight_class, winnings, losses, draws, age, height, weight, summary) VALUES ('Conor', 'McGregor', 'Notorious', false, 'Leve', 21, 4, 0, 30, '175.3cm', '70.3kg', 'Minha crença')
+INSERT INTO fighter (first_name, last_name, nickname, holds_title, weight_class, winnings, losses, draws, age, height, weight, summary) VALUES ('Khabib', 'Nurmagomedov', 'Eagle', true, 'Leve', 27, 0, 0, 30, '177.8cm', '70.3kg', 'Wrestling')
+INSERT INTO fighter (first_name, last_name, nickname, holds_title, weight_class, winnings, losses, draws, age, height, weight, summary) VALUES ('Daniel', 'Cormier', 'DC', true, 'Pesado', 21, 1, 0, 39, '180.3cm', '106.6kg', 'Wrestling')
