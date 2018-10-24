@@ -1,6 +1,7 @@
 package com.repnation.ufc.service;
 
 import com.repnation.ufc.domain.model.Fighter;
+import com.repnation.ufc.factory.FighterFactory;
 import com.repnation.ufc.repository.FighterRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +29,7 @@ public class FighterServiceTest {
     @Test
     public void whenICallServiceItShouldPerformProperly() {
         List<Fighter> fighters = new ArrayList<>();
-        Fighter conorMcGregor = new Fighter();
-        conorMcGregor.setNickname("Notorious");
+        Fighter conorMcGregor = FighterFactory.getFighter();
         fighters.add(conorMcGregor);
 
         when(fighterService.findAll()).thenReturn(fighters);
@@ -41,11 +41,10 @@ public class FighterServiceTest {
 
     @Test
     public void whenIRequestFighterByIdShouldPerformProperly() {
-        Fighter expectedFighter = new Fighter();
-        expectedFighter.setNickname("Notorious");
+        Fighter expectedFighter = FighterFactory.getFighter();
 
         when(fighterRepository.findById(any())).thenReturn(Optional.of(expectedFighter));
-        Optional<Fighter> response = fighterRepository.findById(Long.valueOf(1));
+        Optional<Fighter> response = fighterRepository.findById(1L);
 
         Fighter actualFighter = response.orElseGet(Fighter::new);
         assertEquals(expectedFighter, actualFighter);
