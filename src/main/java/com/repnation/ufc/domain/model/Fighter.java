@@ -1,5 +1,7 @@
 package com.repnation.ufc.domain.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Table;
 public class Fighter {
     @Id
     @GeneratedValue
+    @ApiModelProperty(notes = "The database generated fighter ID")
     private Long Id;
     @Column(name = "first_name")
     private String firstName;
@@ -27,6 +30,7 @@ public class Fighter {
     private Integer age;
     private String height;
     private String weight;
+    @ApiModelProperty(notes = "The description of the skills given by the fighters")
     private String summary;
 
     public Fighter() {
