@@ -25,4 +25,8 @@ public class FighterService {
     public Fighter findById(Long id) throws Exception {
         return fighterRepository.findById(id).orElseThrow(() -> new NotFoundException("Fighter Not Found"));
     }
+
+    public List<Fighter> saveAll(List<Fighter> fighters) {
+        return fighterRepository.saveAll(fighters);
+    }
 }

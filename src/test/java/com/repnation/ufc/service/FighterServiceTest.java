@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,10 +27,7 @@ public class FighterServiceTest {
 
     @Test
     public void whenICallServiceItShouldPerformProperly() {
-        List<Fighter> fighters = new ArrayList<>();
-        Fighter conorMcGregor = FighterFactory.getFighter();
-        fighters.add(conorMcGregor);
-
+        List<Fighter> fighters = FighterFactory.getFighters();
         when(fighterService.findAll()).thenReturn(fighters);
 
         List<Fighter> actualFighters = fighterService.findAll();
@@ -48,5 +44,15 @@ public class FighterServiceTest {
 
         Fighter actualFighter = response.orElseGet(Fighter::new);
         assertEquals(expectedFighter, actualFighter);
+    }
+
+    @Test
+    public void whenISaveNewFightersItShouldPerformProperly() {
+        List<Fighter> expectedFighters = FighterFactory.getFighters();
+        when(fighterRepository.saveAll(any())).thenReturn(expectedFighters);
+
+        List<Fighter> actualFighters =  fighterService.saveAll(expectedFighters);
+
+        assertEquals(2, actualFighters.size());
     }
 }
