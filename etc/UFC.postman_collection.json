@@ -41,6 +41,32 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Save new fighters",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\t\"first_name\": \"Goku\",\n        \"last_name\": \"Son\",\n        \"nickname\": \"Kakaroto\",\n        \"holds_title\": true,\n        \"weight_classes\": \"all of them\",\n        \"winnings\": 100,\n        \"losses\": 0,\n        \"draws\": 0,\n        \"age\": 50,\n        \"height\": \"185.5cm\",\n        \"weight\": \"95kg\",\n        \"summary\": \"well-rounded, powerful punches, powerful kicks, speed, phenomenal\"\t\n\t}\n]"
+				},
+				"url": {
+					"raw": "{{ufc-url}}/fighters",
+					"host": [
+						"{{ufc-url}}"
+					],
+					"path": [
+						"fighters"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
