@@ -1,6 +1,7 @@
 package com.repnation.ufc.factory;
 
 import com.repnation.ufc.domain.model.Fighter;
+import com.repnation.ufc.domain.model.vo.FighterVo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,5 +60,22 @@ public class FighterFactory {
         fighters.add(fighter1);
         fighters.add(fighter2);
         return fighters;
+    }
+
+    public static FighterVo getFighterVo() {
+        return new FighterVo.Builder()
+                .withFirsName("Anderson")
+                .withLastName("Silva")
+                .withNickname("The Spider")
+                .withWeightClass("Light Heavyweight")
+                .withHoldsTitle(true)
+                .withWinnings(34)
+                .withLosses(8)
+                .withDraws(0)
+                .withAge(43)
+                .withHeight("187cm")
+                .withWeight("85kg")
+                .withSummary("very well-rounded, phenomenal, striker, speed")
+                .build();
     }
 }

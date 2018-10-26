@@ -1,6 +1,7 @@
 package com.repnation.ufc.service;
 
 import com.repnation.ufc.domain.model.Fighter;
+import com.repnation.ufc.domain.model.vo.FighterVo;
 import com.repnation.ufc.factory.FighterFactory;
 import com.repnation.ufc.repository.FighterRepository;
 import org.junit.Test;
@@ -47,12 +48,10 @@ public class FighterServiceTest {
     }
 
     @Test
-    public void whenISaveNewFightersItShouldPerformProperly() {
-        List<Fighter> expectedFighters = FighterFactory.getFighters();
-        when(fighterRepository.saveAll(any())).thenReturn(expectedFighters);
-
-        List<Fighter> actualFighters =  fighterService.saveAll(expectedFighters);
-
-        assertEquals(2, actualFighters.size());
+    public void whenISaveNewFighterItShouldPerformProperly() {
+        Fighter fighter = FighterFactory.getFighter();
+        when(fighterRepository.save(any())).thenReturn(fighter);
+        Fighter actualFighter = fighterService.save(fighter);
+        assertEquals(fighter, actualFighter);
     }
 }

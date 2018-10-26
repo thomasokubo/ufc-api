@@ -5,6 +5,7 @@ import com.repnation.ufc.domain.model.vo.FighterVo;
 import com.repnation.ufc.factory.FighterFactory;
 import com.repnation.ufc.service.FighterService;
 import com.repnation.ufc.service.mapper.FighterMapper;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javassist.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +15,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -61,6 +64,16 @@ public class FighterControllerTest {
     @Test(expected = NotFoundException.class)
     public void whenIRequestForAnInvalidFighterShouldThrowException() throws Exception{
         when(fighterService.findById(any())).thenThrow(new NotFoundException("Fighter Not Found"));
-        FighterVo actualFighter = fighterController.getFighterById(1L);
+        fighterController.getFighterById(1L);
+    }
+
+    @Test
+    public void whenIWantToSaveTwoNewFightersItShouldReturnAListOfSizeTwo() {
+        Fighter fighter = FighterFactory.getFighter();
+        FighterVo fighterVo = FighterFactory.getFighterVo();
+        when(fighterService.save(any())).thenReturn(fighter);
+
+        Fighter actualFighter = fighterController.saveFighter(fighterVo);
+        assertEquals(actualFighter.getFirstName(), fighterVo.getFirstName());
     }
 }
