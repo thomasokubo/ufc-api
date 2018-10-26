@@ -1,6 +1,8 @@
 package com.repnation.ufc.service;
 
 import com.repnation.ufc.domain.model.Fighter;
+import com.repnation.ufc.domain.model.vo.FighterVo;
+import com.repnation.ufc.factory.FighterFactory;
 import com.repnation.ufc.repository.FighterRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +28,7 @@ public class FighterServiceTest {
 
     @Test
     public void whenICallServiceItShouldPerformProperly() {
-        List<Fighter> fighters = new ArrayList<>();
-        Fighter conorMcGregor = new Fighter();
-        conorMcGregor.setNickname("Notorious");
-        fighters.add(conorMcGregor);
-
+        List<Fighter> fighters = FighterFactory.getFighters();
         when(fighterService.findAll()).thenReturn(fighters);
 
         List<Fighter> actualFighters = fighterService.findAll();
@@ -41,13 +38,20 @@ public class FighterServiceTest {
 
     @Test
     public void whenIRequestFighterByIdShouldPerformProperly() {
-        Fighter expectedFighter = new Fighter();
-        expectedFighter.setNickname("Notorious");
+        Fighter expectedFighter = FighterFactory.getFighter();
 
         when(fighterRepository.findById(any())).thenReturn(Optional.of(expectedFighter));
-        Optional<Fighter> response = fighterRepository.findById(Long.valueOf(1));
+        Optional<Fighter> response = fighterRepository.findById(1L);
 
         Fighter actualFighter = response.orElseGet(Fighter::new);
         assertEquals(expectedFighter, actualFighter);
+    }
+
+    @Test
+    public void whenISaveNewFighterItShouldPerformProperly() {
+        Fighter fighter = FighterFactory.getFighter();
+        when(fighterRepository.save(any())).thenReturn(fighter);
+        Fighter actualFighter = fighterService.save(fighter);
+        assertEquals(fighter, actualFighter);
     }
 }

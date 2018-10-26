@@ -21,6 +21,9 @@ public class FighterVo {
     private String weight;
     private String summary;
 
+    public FighterVo() {
+    }
+
     private FighterVo(Builder builder) {
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;

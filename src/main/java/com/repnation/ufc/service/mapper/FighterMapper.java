@@ -26,5 +26,22 @@ public class FighterMapper {
                 .build();
     }
 
+    public static Fighter mapFromVoToDomain(FighterVo fighterVo) {
+        return new Fighter.Builder()
+                .withFirsName(fighterVo.getFirstName())
+                .withLastName(fighterVo.getLastName())
+                .withNickname(fighterVo.getNickname())
+                .withHoldsTitle(fighterVo.isHoldsTitle())
+                .withWeightClass(fighterVo.getWeightClass())
+                .withWinnings(fighterVo.getWinnings())
+                .withLosses(fighterVo.getLosses())
+                .withDraws(fighterVo.getDraws())
+                .withAge(fighterVo.getAge())
+                .withHeight(fighterVo.getHeight())
+                .withWeight(fighterVo.getWeight())
+                .withSummary(fighterVo.getSummary())
+                .build();
+    }
+
 
 }

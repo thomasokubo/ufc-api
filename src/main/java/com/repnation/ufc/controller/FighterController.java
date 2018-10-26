@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,9 +50,21 @@ public class FighterController {
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 404, message = "Accessing the resource you were trying to reach is forbidden")
     })
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{id}", produces = "application/vnd.api+json")
     public FighterVo getFighterById(@PathVariable Long id) throws Exception{
         Fighter fighter = fighterService.findById(id);
         return FighterMapper.mapFromDomainToVo(fighter);
     }
+
+    @ApiOperation(value = "Saves a new fighter")
+    @ApiResponses(value = {
+            @ApiResponse(code = 202, message = "The resource sent was accepted")
+    })
+    @PostMapping(consumes = "application/vnd.api+json",
+                 produces = "application/vnd.api+json")
+    public Fighter saveFighter(@RequestBody FighterVo requestBody) {
+        Fighter fighter = FighterMapper.mapFromVoToDomain(requestBody);
+        return fighterService.save(fighter);
+    }
+
 }

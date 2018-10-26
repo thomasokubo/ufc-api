@@ -2,17 +2,13 @@ package com.repnation.ufc.domain.model;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "fighter")
 public class Fighter {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(notes = "The database generated fighter ID")
     private Long Id;
     @Column(name = "first_name")
