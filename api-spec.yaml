@@ -35,9 +35,15 @@ paths:
       - "application/vnd.api+json"
       responses:
         200:
-          description: "OK"
+          description: "Successfully retrieves the required resource"
           schema:
-            $ref: "#/definitions/FighterResponse"
+            $ref: "#/definitions/FighterListResponse"
+        401:
+          description: "You are not authorized to view the resource"
+        403:
+          description: "Accessing the resource you are trying to access is forbidden"
+        404:
+          description: "The resource you are trying to access was not found"
       security:
       - api_key: []
 
@@ -57,19 +63,22 @@ paths:
         type: "string"
       - in: "body"
         name: "Request"
-        description: "Request object that follows Json API specification"
+        description: "Saves a new fighter in the database"
         required: true
         schema:
           $ref: "#/definitions/FighterRequest"
       responses:
         202:
-          description: "Accepted"
+          description: "The resource sent was accepted"
           schema:
             $ref: "#/definitions/FighterResponse"
         401:
-          description: "Unauthorized"
-          schema:
-            $ref: "#/definitions/Errors"
+          description: "You are not authorized to view the resource"
+        403:
+          description: "Accessing the resource you are trying to access is forbidden"
+        404:
+          description: "The resource you are trying to access was not found"
+
       security:
       - api_key: []
 
@@ -94,13 +103,15 @@ paths:
         format: "int64"
       responses:
         200:
-          description: "OK"
+          description: "Successfully retrieves the required resource"
           schema:
             $ref: "#/definitions/FighterResponse"
+        401:
+          description: "You are not authorized to view the resource"
+        403:
+          description: "Accessing the resource you are trying to access is forbidden"
         404:
-          description: "Not Found"
-          schema:
-            $ref: "#/definitions/Errors"
+          description: "The resource you are trying to access was not found"
       security:
       - api_key: []
 
@@ -132,13 +143,15 @@ paths:
         format: "int64"
       responses:
         200:
-          description: "OK"
+          description: "Successfully retrieves the required resource"
           schema:
             $ref: "#/definitions/FighterResponse"
+        401:
+          description: "You are not authorized to view the resource"
+        403:
+          description: "Accessing the resource you are trying to access is forbidden"
         404:
-          description: "Not Found"
-          schema:
-            $ref: "#/definitions/Errors"
+          description: "The resource you are trying to access was not found"
       security:
       - api_key: []
 
@@ -156,23 +169,17 @@ paths:
         type: "string"
       - name: "id"
         in: "path"
-        description: "ID of fighter to return"
+        description: "ID of fighter to remove"
         required: true
         type: "integer"
         format: "int64"
       responses:
-        202:
-          description: "Accepted"
+        200:
+          description: "Successfully removed the resource"
           schema:
             $ref: "#/definitions/FighterResponse"
-        401:
-          description: "Unauthorized"
-          schema:
-            $ref: "#/definitions/Errors"
         404:
-          description: "Not Found"
-          schema:
-            $ref: "#/definitions/Errors"
+          description: "The resource you are trying to remove was not found"
       deprecated: false
       security:
       - api_key: []
@@ -189,13 +196,25 @@ definitions:
       data:
         $ref: "#/definitions/FighterData"
 
+  FighterListRequest:
+    type: "object"
+    properties:
+      data:
+        $ref: "#/definitions/FighterListData"
+
   FighterResponse:
     type: "object"
     properties:
       data:
-        type: "array"
-        items:
-          $ref: "#/definitions/FighterData"
+        $ref: "#/definitions/FighterData"
+      meta:
+        $ref: "#/definitions/RequestMeta"
+
+  FighterListResponse:
+    type: "object"
+    properties:
+      data:
+        $ref: "#/definitions/FighterListData"
       meta:
         $ref: "#/definitions/RequestMeta"
 
@@ -205,6 +224,13 @@ definitions:
       attributes:
         $ref: "#/definitions/Fighter"
 
+  FighterListData:
+    type: "object"
+    properties:
+      attributes:
+        type: array
+        items:
+          $ref: "#/definitions/Fighter"
 
   RequestMeta:
     type: "object"
@@ -225,11 +251,9 @@ definitions:
       nickname:
         type: "string"
       holds_title:
-        type: boolean
+        type: "boolean"
       weight_classes:
-        type: array
-        items:
-          type: "string"
+        type: "string"
       winnings:
         type: "integer"
         format: "int32"
