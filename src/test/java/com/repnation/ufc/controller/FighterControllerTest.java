@@ -68,12 +68,26 @@ public class FighterControllerTest {
     }
 
     @Test
-    public void whenIWantToSaveTwoNewFightersItShouldReturnAListOfSizeTwo() {
+    public void whenICallPostFighterItShouldPerformProperly() {
         Fighter fighter = FighterFactory.getFighter();
         FighterVo fighterVo = FighterFactory.getFighterVo();
         when(fighterService.save(any())).thenReturn(fighter);
 
-        Fighter actualFighter = fighterController.saveFighter(fighterVo);
+        FighterVo actualFighter = fighterController.saveFighter(fighterVo);
         assertEquals(actualFighter.getFirstName(), fighterVo.getFirstName());
+    }
+
+    @Test
+    public void whenICallPatchFighterItShouldPerformProperly() throws Exception {
+        FighterVo fighterVo = FighterFactory.getFighterVo();
+        Fighter fighter = FighterFactory.getFighter();
+        Fighter updatedFighter = FighterFactory.getFighter();
+        Integer winnings = updatedFighter.getWinnings() + 1;
+        updatedFighter.setWinnings(winnings);
+        when(fighterService.findById(any())).thenReturn(fighter);
+        when(fighterService.save(any())).thenReturn(updatedFighter);
+
+        FighterVo actualFighterVo = fighterController.updateFighter(1L, fighterVo);
+        assertEquals(winnings, actualFighterVo.getWinnings());
     }
 }
