@@ -3,6 +3,7 @@ package com.repnation.ufc.domain.model;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name = "fighter")
@@ -33,30 +34,30 @@ public class Fighter {
     }
 
     private Fighter(Builder builder) {
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
-        this.nickname = builder.nickname;
-        this.holdsTitle = builder.holdsTitle;
-        this.weightClass = builder.weightClass;
-        this.winnings = builder.winnings;
-        this.losses = builder.losses;
-        this.draws = builder.draws;
-        this.age = builder.age;
-        this.height = builder.height;
-        this.weight = builder.weight;
-        this.summary = builder.summary;
+        Optional.ofNullable(builder.firstName).ifPresent(this::setFirstName);
+        Optional.ofNullable(builder.lastName).ifPresent(this::setLastName);
+        Optional.ofNullable(builder.nickname).ifPresent(this::setNickname);
+        Optional.ofNullable(builder.holdsTitle).ifPresent(this::setHoldsTitle);
+        Optional.ofNullable(builder.weightClass).ifPresent(this::setWeightClass);
+        Optional.ofNullable(builder.winnings).ifPresent(this::setWinnings);
+        Optional.ofNullable(builder.losses).ifPresent(this::setLosses);
+        Optional.ofNullable(builder.draws).ifPresent(this::setDraws);
+        Optional.ofNullable(builder.age).ifPresent(this::setAge);
+        Optional.ofNullable(builder.height).ifPresent(this::setHeight);
+        Optional.ofNullable(builder.height).ifPresent(this::setWeight);
+        Optional.ofNullable(builder.summary).ifPresent(this::setSummary);
     }
 
     public static class Builder {
         private String firstName;
         private String lastName;
         private String nickname;
-        private boolean holdsTitle;
+        private Boolean holdsTitle;
         private String weightClass;
-        private int winnings;
-        private int losses;
-        private int draws;
-        private int age;
+        private Integer winnings;
+        private Integer losses;
+        private Integer draws;
+        private Integer age;
         private String height;
         private String weight;
         private String summary;
@@ -153,7 +154,7 @@ public class Fighter {
         this.nickname = nickname;
     }
 
-    public boolean isHoldsTitle() {
+    public Boolean isTitleHolder() {
         return holdsTitle;
     }
 
@@ -169,7 +170,7 @@ public class Fighter {
         this.weightClass = weightClass;
     }
 
-    public int getWinnings() {
+    public Integer getWinnings() {
         return winnings;
     }
 
@@ -177,7 +178,7 @@ public class Fighter {
         this.winnings = winnings;
     }
 
-    public int getLosses() {
+    public Integer getLosses() {
         return losses;
     }
 
@@ -185,7 +186,7 @@ public class Fighter {
         this.losses = losses;
     }
 
-    public int getDraws() {
+    public Integer getDraws() {
         return draws;
     }
 
@@ -193,7 +194,7 @@ public class Fighter {
         this.draws = draws;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
