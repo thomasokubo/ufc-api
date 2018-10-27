@@ -2,6 +2,8 @@ package com.repnation.ufc.domain.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Optional;
+
 public class FighterVo {
 
     @JsonProperty("first_name")
@@ -10,13 +12,13 @@ public class FighterVo {
     private String lastName;
     private String nickname;
     @JsonProperty("holds_title")
-    private boolean holdsTitle;
+    private Boolean holdsTitle;
     @JsonProperty("weight_class")
     private String weightClass;
-    private int winnings;
-    private int losses;
-    private int draws;
-    private int age;
+    private Integer winnings;
+    private Integer losses;
+    private Integer draws;
+    private Integer age;
     private String height;
     private String weight;
     private String summary;
@@ -25,30 +27,30 @@ public class FighterVo {
     }
 
     private FighterVo(Builder builder) {
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
-        this.nickname = builder.nickname;
-        this.holdsTitle = builder.holdsTitle;
-        this.weightClass = builder.weightClass;
-        this.winnings = builder.winnings;
-        this.losses = builder.losses;
-        this.draws = builder.draws;
-        this.age = builder.age;
-        this.height = builder.height;
-        this.weight = builder.weight;
-        this.summary = builder.summary;
+        Optional.ofNullable(builder.firstName).ifPresent(this::setFirstName);
+        Optional.ofNullable(builder.lastName).ifPresent(this::setLastName);
+        Optional.ofNullable(builder.nickname).ifPresent(this::setNickname);
+        Optional.ofNullable(builder.holdsTitle).ifPresent(this::setHoldsTitle);
+        Optional.ofNullable(builder.weightClass).ifPresent(this::setWeightClass);
+        Optional.ofNullable(builder.winnings).ifPresent(this::setWinnings);
+        Optional.ofNullable(builder.losses).ifPresent(this::setLosses);
+        Optional.ofNullable(builder.draws).ifPresent(this::setDraws);
+        Optional.ofNullable(builder.age).ifPresent(this::setAge);
+        Optional.ofNullable(builder.height).ifPresent(this::setHeight);
+        Optional.ofNullable(builder.weight).ifPresent(this::setWeight);
+        Optional.ofNullable(builder.summary).ifPresent(this::setSummary);
     }
 
     public static class Builder {
         private String firstName;
         private String lastName;
         private String nickname;
-        private boolean holdsTitle;
+        private Boolean holdsTitle;
         private String weightClass;
-        private int winnings;
-        private int losses;
-        private int draws;
-        private int age;
+        private Integer winnings;
+        private Integer losses;
+        private Integer draws;
+        private Integer age;
         private String height;
         private String weight;
         private String summary;
@@ -121,6 +123,9 @@ public class FighterVo {
         }
     }
 
+
+
+
     public String getFirstName() {
         return firstName;
     }
@@ -133,7 +138,7 @@ public class FighterVo {
         return nickname;
     }
 
-    public boolean isHoldsTitle() {
+    public Boolean isTitleHolder() {
         return holdsTitle;
     }
 
@@ -141,19 +146,19 @@ public class FighterVo {
         return weightClass;
     }
 
-    public int getWinnings() {
+    public Integer getWinnings() {
         return winnings;
     }
 
-    public int getLosses() {
+    public Integer getLosses() {
         return losses;
     }
 
-    public int getDraws() {
+    public Integer getDraws() {
         return draws;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -167,5 +172,53 @@ public class FighterVo {
 
     public String getSummary() {
         return summary;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setHoldsTitle(Boolean holdsTitle) {
+        this.holdsTitle = holdsTitle;
+    }
+
+    public void setWeightClass(String weightClass) {
+        this.weightClass = weightClass;
+    }
+
+    public void setWinnings(Integer winnings) {
+        this.winnings = winnings;
+    }
+
+    public void setLosses(Integer losses) {
+        this.losses = losses;
+    }
+
+    public void setDraws(Integer draws) {
+        this.draws = draws;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }
