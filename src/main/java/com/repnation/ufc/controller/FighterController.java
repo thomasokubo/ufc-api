@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 
 import static java.util.stream.Collectors.toList;
@@ -62,9 +63,36 @@ public class FighterController {
     })
     @PostMapping(consumes = "application/vnd.api+json",
                  produces = "application/vnd.api+json")
-    public Fighter saveFighter(@RequestBody FighterVo requestBody) {
+    public FighterVo saveFighter(@RequestBody FighterVo requestBody) {
         Fighter fighter = FighterMapper.mapFromVoToDomain(requestBody);
-        return fighterService.save(fighter);
+        fighter = fighterService.save(fighter);
+        return FighterMapper.mapFromDomainToVo(fighter);
     }
 
+    @ApiOperation(value = "Updates the properties of the fighter with the given id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully updated the fighter"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 404, message = "Accessing the resource you were trying to reach is forbidden")
+    })
+    @PatchMapping( value = "/{id}",
+            consumes = "application/vnd.api+json",
+            produces = "application/vnd.api+json")
+    public FighterVo updateFighter(@PathVariable Long id, @RequestBody FighterVo fighterVo) throws Exception {
+        Fighter fighter = fighterService.findById(id);
+        Optional.ofNullable(fighterVo.getFirstName()).ifPresent(fighter::setFirstName);
+        Optional.ofNullable(fighterVo.getLastName()).ifPresent(fighter::setLastName);
+        Optional.ofNullable(fighterVo.getNickname()).ifPresent(fighter::setNickname);
+        Optional.ofNullable(fighterVo.getWeightClass()).ifPresent(fighter::setWeightClass);
+        Optional.ofNullable(fighterVo.isTitleHolder()).ifPresent(fighter::setHoldsTitle);
+        Optional.ofNullable(fighterVo.getAge()).ifPresent(fighter::setAge);
+        Optional.ofNullable(fighterVo.getWinnings()).ifPresent(fighter::setWinnings);
+        Optional.ofNullable(fighterVo.getLosses()).ifPresent(fighter::setLosses);
+        Optional.ofNullable(fighterVo.getDraws()).ifPresent(fighter::setDraws);
+        Optional.ofNullable(fighterVo.getHeight()).ifPresent(fighter::setHeight);
+        Optional.ofNullable(fighterVo.getWeight()).ifPresent(fighter::setWeight);
+        Optional.ofNullable(fighterVo.getSummary()).ifPresent(fighter::setSummary);
+        fighter = fighterService.save(fighter);
+        return FighterMapper.mapFromDomainToVo(fighter);
+    }
 }
