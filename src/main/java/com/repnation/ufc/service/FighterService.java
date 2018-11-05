@@ -1,7 +1,6 @@
 package com.repnation.ufc.service;
 
 import com.repnation.ufc.domain.model.Fighter;
-import com.repnation.ufc.domain.model.vo.FighterVo;
 import com.repnation.ufc.repository.FighterRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
