@@ -44,7 +44,7 @@ public class Fighter {
         Optional.ofNullable(builder.draws).ifPresent(this::setDraws);
         Optional.ofNullable(builder.age).ifPresent(this::setAge);
         Optional.ofNullable(builder.height).ifPresent(this::setHeight);
-        Optional.ofNullable(builder.height).ifPresent(this::setWeight);
+        Optional.ofNullable(builder.weight).ifPresent(this::setWeight);
         Optional.ofNullable(builder.summary).ifPresent(this::setSummary);
     }
 
