@@ -4,8 +4,6 @@ import com.repnation.ufc.domain.model.Fighter;
 import com.repnation.ufc.domain.model.vo.FighterVo;
 import com.repnation.ufc.factory.FighterFactory;
 import com.repnation.ufc.service.FighterService;
-import com.repnation.ufc.service.mapper.FighterMapper;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javassist.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,8 +13,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
