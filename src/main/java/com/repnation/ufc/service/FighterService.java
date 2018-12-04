@@ -1,8 +1,8 @@
 package com.repnation.ufc.service;
 
 import com.repnation.ufc.domain.model.Fighter;
+import com.repnation.ufc.exception.NotFoundException;
 import com.repnation.ufc.repository.FighterRepository;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +22,12 @@ public class FighterService {
         return fighterRepository.findAll();
     }
 
-    public Fighter findById(Long id) throws Exception {
-        return fighterRepository.findById(id).orElseThrow(() -> new NotFoundException("Fighter Not Found"));
+    public Fighter findById(Long id) throws RuntimeException {
+        return fighterRepository.findById(id).orElseThrow(() -> new NotFoundException("Fighter", id));
     }
 
-    public void delete(Long id) throws Exception{
-        Fighter fighter = fighterRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Fighter not found"));
+    public void delete(Long id) throws RuntimeException {
+        Fighter fighter = fighterRepository.findById(id).orElseThrow(() -> new NotFoundException("Fighter", id));
         fighterRepository.delete(fighter);
     }
 

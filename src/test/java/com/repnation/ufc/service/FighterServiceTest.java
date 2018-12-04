@@ -1,9 +1,9 @@
 package com.repnation.ufc.service;
 
 import com.repnation.ufc.domain.model.Fighter;
+import com.repnation.ufc.exception.NotFoundException;
 import com.repnation.ufc.factory.FighterFactory;
 import com.repnation.ufc.repository.FighterRepository;
-import javassist.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -56,7 +56,7 @@ public class FighterServiceTest {
     }
 
     @Test
-    public void whenIDeleteValidFighterItShouldPerformProperly() throws Exception{
+    public void whenIDeleteValidFighterItShouldPerformProperly() throws RuntimeException {
         Fighter fighter = FighterFactory.getFighter();
         when(fighterRepository.findById(any())).thenReturn(Optional.of(fighter));
         doNothing().when(fighterRepository).delete(any());
@@ -65,7 +65,7 @@ public class FighterServiceTest {
     }
 
     @Test(expected = NotFoundException.class)
-    public void whenITryToDeleteInvalidFighterItShouldThrowException() throws Exception{
+    public void whenITryToDeleteInvalidFighterItShouldThrowException() throws RuntimeException {
         when(fighterRepository.findById(any())).thenReturn(Optional.empty());
         fighterService.delete(any());
     }

@@ -31,9 +31,7 @@ public class FighterController {
 
     @ApiOperation(value = "Retrieves a list with all fighters")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved the fighters"),
-            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
-            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden")
+            @ApiResponse(code = 200, message = "Successfully retrieved the fighters")
     })
     @GetMapping(produces = "application/vnd.api+json")
     public List<FighterVo> getFighters() {
@@ -46,18 +44,17 @@ public class FighterController {
     @ApiOperation(value = "Retrieves the information of the fighter with the given id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved the fighter"),
-            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 404, message = "Accessing the resource you were trying to reach is forbidden")
     })
     @GetMapping(value = "/{id}", produces = "application/vnd.api+json")
-    public FighterVo getFighterById(@PathVariable Long id) throws Exception{
+    public FighterVo getFighterById(@PathVariable Long id) throws RuntimeException {
         Fighter fighter = fighterService.findById(id);
         return FighterMapper.mapFromDomainToVo(fighter);
     }
 
     @ApiOperation(value = "Saves a new fighter")
     @ApiResponses(value = {
-            @ApiResponse(code = 202, message = "The resource sent was accepted")
+            @ApiResponse(code = 200, message = "The resource sent was accepted")
     })
     @PostMapping(consumes = "application/vnd.api+json",
                  produces = "application/vnd.api+json")
@@ -70,13 +67,12 @@ public class FighterController {
     @ApiOperation(value = "Updates the properties of the fighter with the given id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully updated the fighter"),
-            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 404, message = "Accessing the resource you were trying to reach is forbidden")
     })
     @PatchMapping( value = "/{id}",
             consumes = "application/vnd.api+json",
             produces = "application/vnd.api+json")
-    public FighterVo updateFighter(@PathVariable Long id, @RequestBody FighterVo fighterVo) throws Exception {
+    public FighterVo updateFighter(@PathVariable Long id, @RequestBody FighterVo fighterVo) throws RuntimeException {
         Fighter fighter = fighterService.findById(id);
         Optional.ofNullable(fighterVo.getFirstName()).ifPresent(fighter::setFirstName);
         Optional.ofNullable(fighterVo.getLastName()).ifPresent(fighter::setLastName);
@@ -97,11 +93,10 @@ public class FighterController {
     @ApiOperation(value = "Deletes the fighter with the given id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully deleted the fighter"),
-            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 404, message = "Accessing the resource you were trying to reach is forbidden")
     })
     @DeleteMapping(value = "/{id}", consumes = "application/vnd.api+json")
-    public void deleteFighter(@PathVariable Long id) throws Exception {
+    public void deleteFighter(@PathVariable Long id) throws RuntimeException {
         fighterService.delete(id);
     }
 }
