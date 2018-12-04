@@ -11,6 +11,7 @@ public class FighterMapper {
 
     public static FighterVo mapFromDomainToVo(Fighter fighter) {
         return new FighterVo.Builder()
+                .withId(fighter.getId())
                 .withFirsName(fighter.getFirstName())
                 .withLastName(fighter.getLastName())
                 .withNickname(fighter.getNickname())
@@ -42,6 +43,4 @@ public class FighterMapper {
                 .withSummary(fighterVo.getSummary())
                 .build();
     }
-
-
 }

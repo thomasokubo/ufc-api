@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Optional;
 
 public class FighterVo {
-
+    private Long id;
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("last_name")
@@ -27,6 +27,7 @@ public class FighterVo {
     }
 
     private FighterVo(Builder builder) {
+        Optional.ofNullable(builder.id).ifPresent(this::setId);
         Optional.ofNullable(builder.firstName).ifPresent(this::setFirstName);
         Optional.ofNullable(builder.lastName).ifPresent(this::setLastName);
         Optional.ofNullable(builder.nickname).ifPresent(this::setNickname);
@@ -42,6 +43,7 @@ public class FighterVo {
     }
 
     public static class Builder {
+        private Long id;
         private String firstName;
         private String lastName;
         private String nickname;
@@ -56,6 +58,11 @@ public class FighterVo {
         private String summary;
 
         public Builder() {
+        }
+
+        public Builder withId(Long id) {
+            this.id = id;
+            return this;
         }
 
         public Builder withFirsName(String firstName) {
@@ -124,7 +131,13 @@ public class FighterVo {
     }
 
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
