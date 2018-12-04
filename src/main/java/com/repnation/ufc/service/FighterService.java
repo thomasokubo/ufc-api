@@ -26,6 +26,12 @@ public class FighterService {
         return fighterRepository.findById(id).orElseThrow(() -> new NotFoundException("Fighter Not Found"));
     }
 
+    public void delete(Long id) throws Exception{
+        Fighter fighter = fighterRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Fighter not found"));
+        fighterRepository.delete(fighter);
+    }
+
     public Fighter save(Fighter fighter) {
         return fighterRepository.save(fighter);
     }

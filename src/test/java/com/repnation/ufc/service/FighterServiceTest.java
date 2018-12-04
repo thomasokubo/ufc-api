@@ -3,6 +3,7 @@ package com.repnation.ufc.service;
 import com.repnation.ufc.domain.model.Fighter;
 import com.repnation.ufc.factory.FighterFactory;
 import com.repnation.ufc.repository.FighterRepository;
+import javassist.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FighterServiceTest {
@@ -53,4 +54,20 @@ public class FighterServiceTest {
         Fighter actualFighter = fighterService.save(fighter);
         assertEquals(fighter, actualFighter);
     }
+
+    @Test
+    public void whenIDeleteValidFighterItShouldPerformProperly() throws Exception{
+        Fighter fighter = FighterFactory.getFighter();
+        when(fighterRepository.findById(any())).thenReturn(Optional.of(fighter));
+        doNothing().when(fighterRepository).delete(any());
+        fighterService.delete(fighter.getId());
+        verify(fighterRepository).delete(any());
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void whenITryToDeleteInvalidFighterItShouldThrowException() throws Exception{
+        when(fighterRepository.findById(any())).thenReturn(Optional.empty());
+        fighterService.delete(any());
+    }
+
 }

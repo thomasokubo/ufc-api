@@ -30,13 +30,13 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "{{ufc-url}}/fighters/1",
+					"raw": "{{ufc-url}}/fighters/5",
 					"host": [
 						"{{ufc-url}}"
 					],
 					"path": [
 						"fighters",
-						"1"
+						"5"
 					]
 				}
 			},
@@ -90,6 +90,30 @@
 					"path": [
 						"fighters",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Fighter",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{ufc-url}}/fighters/5",
+					"host": [
+						"{{ufc-url}}"
+					],
+					"path": [
+						"fighters",
+						"5"
 					]
 				}
 			},

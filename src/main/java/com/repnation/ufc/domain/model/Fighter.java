@@ -130,6 +130,10 @@ public class Fighter {
         }
     }
 
+    public Long getId() {
+        return Id;
+    }
+
     public String getFirstName() {
         return firstName;
     }

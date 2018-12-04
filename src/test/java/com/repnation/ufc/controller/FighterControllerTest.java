@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -85,5 +86,12 @@ public class FighterControllerTest {
 
         FighterVo actualFighterVo = fighterController.updateFighter(1L, fighterVo);
         assertEquals(winnings, actualFighterVo.getWinnings());
+    }
+
+    @Test
+    public void whenICallDeleteFighterItShouldPerformProperly() throws Exception{
+        doNothing().when(fighterService).delete(any());
+        fighterController.deleteFighter(1L);
+        verify(fighterService).delete(any());
     }
 }

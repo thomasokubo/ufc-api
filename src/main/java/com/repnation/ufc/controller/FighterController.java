@@ -93,4 +93,15 @@ public class FighterController {
         fighter = fighterService.save(fighter);
         return FighterMapper.mapFromDomainToVo(fighter);
     }
+
+    @ApiOperation(value = "Deletes the fighter with the given id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully deleted the fighter"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 404, message = "Accessing the resource you were trying to reach is forbidden")
+    })
+    @DeleteMapping(value = "/{id}", consumes = "application/vnd.api+json")
+    public void deleteFighter(@PathVariable Long id) throws Exception {
+        fighterService.delete(id);
+    }
 }
