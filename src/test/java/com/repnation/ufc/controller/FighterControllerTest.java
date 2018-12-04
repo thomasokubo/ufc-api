@@ -2,9 +2,9 @@ package com.repnation.ufc.controller;
 
 import com.repnation.ufc.domain.model.Fighter;
 import com.repnation.ufc.domain.model.vo.FighterVo;
+import com.repnation.ufc.exception.NotFoundException;
 import com.repnation.ufc.factory.FighterFactory;
 import com.repnation.ufc.service.FighterService;
-import javassist.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -43,7 +43,7 @@ public class FighterControllerTest {
     }
 
     @Test
-    public void whenIRequestFighterByIdShouldPerformProperly() throws Exception{
+    public void whenIRequestFighterByIdShouldPerformProperly() throws RuntimeException {
         String firstName = "Anderson";
         String lastName = "Silva";
         String nickname = "The Spider";
@@ -59,8 +59,8 @@ public class FighterControllerTest {
     }
 
     @Test(expected = NotFoundException.class)
-    public void whenIRequestForAnInvalidFighterShouldThrowException() throws Exception{
-        when(fighterService.findById(any())).thenThrow(new NotFoundException("Fighter Not Found"));
+    public void whenIRequestForAnInvalidFighterShouldThrowException() throws RuntimeException {
+        when(fighterService.findById(any())).thenThrow(new NotFoundException("Fighter", 1L));
         fighterController.getFighterById(1L);
     }
 
@@ -75,7 +75,7 @@ public class FighterControllerTest {
     }
 
     @Test
-    public void whenICallPatchFighterItShouldPerformProperly() throws Exception {
+    public void whenICallPatchFighterItShouldPerformProperly() throws RuntimeException {
         FighterVo fighterVo = FighterFactory.getFighterVo();
         Fighter fighter = FighterFactory.getFighter();
         Fighter updatedFighter = FighterFactory.getFighter();
